@@ -52,7 +52,7 @@ namespace Sweepstakes
         }
         private void ManageSweepstakes()
         {
-            if (!manager.HasSweepstakes())
+            if (!manager.IsEmpty())
             {
                 ManageIfNoSweepstakes();
             }

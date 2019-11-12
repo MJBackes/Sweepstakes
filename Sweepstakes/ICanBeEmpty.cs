@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Sweepstakes
 {
-    public interface ISweepstakesManager : ICanBeEmpty
+    public interface ICanBeEmpty
     {
-        void InsertSweepstakes(Sweepstakes sweepstakes);
-        Sweepstakes GetSweepstakes();
+        bool IsEmpty();
     }
 }

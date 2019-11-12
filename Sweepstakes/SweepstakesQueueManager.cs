@@ -46,7 +46,7 @@ namespace Sweepstakes
             } while (continueRunning);
             return default;
         }
-        public bool HasSweepstakes()
+        public bool IsEmpty()
         {
             return queue.Count != 0;
         }
