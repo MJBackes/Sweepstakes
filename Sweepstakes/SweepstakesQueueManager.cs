@@ -19,28 +19,22 @@ namespace Sweepstakes
         }
         public Sweepstakes GetSweepstakes()
         {
-            Sweepstakes current = queue.Dequeue();
-            int input = UI.GetManageSweepstakesInput(current);
             bool continueRunning;
             do
             {
+                Sweepstakes current = queue.Dequeue();
+                queue.Enqueue(current);
+                int input = UI.GetManageSweepstakesInput(current);
                 switch (input)
                 {
                     case 1:
-                        queue.Enqueue(current);
-                        continueRunning = false;
                         return current;
                     case 2:
-                        queue.Enqueue(current);
                         continueRunning = true;
                         break;
                     case 3:
-                        queue.Enqueue(current);
-                        continueRunning = false;
                         return default;
                     default:
-                        queue.Enqueue(current);
-                        continueRunning = false;
                         return default;
                 }
             } while (continueRunning);
@@ -48,7 +42,7 @@ namespace Sweepstakes
         }
         public bool IsEmpty()
         {
-            return queue.Count != 0;
+            return queue.Count == 0;
         }
     }
 }

@@ -8,28 +8,20 @@ namespace Sweepstakes
 {
     public class Sweepstakes : ISubject
     {
-        public Dictionary<double, Contestant> Contestants;
+        public Dictionary<Guid, Contestant> Contestants;
         public string Name { get; }
-        public Contestant Winner { get; }
+        private Contestant winner;
+        public Contestant Winner { get => winner; }
         private Random rng;
         public Sweepstakes(string name)
         {
             Name = name;
-            Contestants = new Dictionary<double, Contestant>();
+            Contestants = new Dictionary<Guid, Contestant>();
             rng = new Random();
-        }
-        public void Attach(IObserver observer)
-        {
-            RegisterContestant((Contestant)observer);
-        }
-        public void Detach(IObserver observer)
-        {
-            double key = ((Contestant)observer).RegistrationNumber;
-            Contestants.Remove(key);
         }
         public void Notify()
         {
-            foreach(KeyValuePair<double,Contestant> pair in Contestants)
+            foreach(KeyValuePair<Guid,Contestant> pair in Contestants)
             {
                 if(pair.Value == Winner)
                 {
@@ -51,16 +43,32 @@ namespace Sweepstakes
         }
         public void RegisterContestant(Contestant contestant)
         {
-            contestant.RegistrationNumber = Contestants.Count;
+            contestant.RegistrationNumber = new Guid();
             Contestants.Add(contestant.RegistrationNumber, contestant);
         }
         public Contestant PickWinner()
         {
-            return Contestants[rng.Next(Contestants.Count)];
+            int randomCounter = 0;
+            int target = rng.Next(Contestants.Count);
+            foreach(KeyValuePair<Guid,Contestant> pair in Contestants)
+            {
+                if (randomCounter == target)
+                    winner = pair.Value;
+                randomCounter++;
+            }
+            Notify();
+            return Winner;
         }
         public void PrintContestantInfo(Contestant contestant)
         {
             contestant.PrintInfo();
+        }
+        public void PrintContestantInfo()
+        {
+            foreach (KeyValuePair<double, Contestant> contestant in Contestants)
+            {
+                contestant.Value.PrintInfo();
+            }
         }
         public void Manage()
         {

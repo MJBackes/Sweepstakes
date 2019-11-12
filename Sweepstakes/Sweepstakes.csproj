@@ -49,7 +49,6 @@
     <Compile Include="ISweepstakesManager.cs" />
     <Compile Include="ManagerFactory.cs" />
     <Compile Include="MarketingFirm.cs" />
-    <Compile Include="IObserver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sweepstakes.cs" />

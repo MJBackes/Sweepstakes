@@ -13,6 +13,7 @@ namespace Sweepstakes
         public SweepstakesStackManager()
         {
             stack = new Stack<Sweepstakes>();
+            storage = new Stack<Sweepstakes>();
         }
         public void InsertSweepstakes(Sweepstakes sweepstakes)
         {
@@ -20,36 +21,45 @@ namespace Sweepstakes
         }
         public Sweepstakes GetSweepstakes()
         {
-            Sweepstakes current = stack.Pop();
-            int input = UI.GetManageSweepstakesInput(current);
             bool continueRunning;
+            Sweepstakes current;
             do
             {
+                if (IsEmpty())
+                    ReturnToStack(storage);
+                current = stack.Pop();
+                storage.Push(current);
+                int input = UI.GetManageSweepstakesInput(current);
                 switch (input)
                 {
                     case 1:
-                        storage.Push(current);
-                        continueRunning = false;
+                        ReturnToStack(storage);
                         return current;
                     case 2:
-                        storage.Push(current);
                         continueRunning = true;
                         break;
                     case 3:
-                        storage.Push(current);
                         continueRunning = false;
-                        return default;
+                        break;
                     default:
-                        storage.Push(current);
                         continueRunning = false;
-                        return default;
+                        break;
                 }
             } while (continueRunning);
+            ReturnToStack(storage);
             return default;
+        }
+        private void ReturnToStack(Stack<Sweepstakes> tempStack)
+        {
+            foreach(Sweepstakes sweepstakes in tempStack)
+            {
+                stack.Push(sweepstakes);
+            }
+            tempStack.Clear();
         }
         public bool IsEmpty()
         {
-            return stack.Count != 0;
+            return stack.Count == 0;
         }
     }
 }

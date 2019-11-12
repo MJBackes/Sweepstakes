@@ -9,9 +9,14 @@ namespace Sweepstakes
     public class MarketingFirm
     {
         private ISweepstakesManager manager;
+
+        public MarketingFirm(ISweepstakesManager manager)
+        {
+            this.manager = manager;
+        }
         private ISweepstakesManager GetSweepstakesManager()
         {
-            int choice = UI.GetManagerChoice();
+            int choice = UI.GetUserInput(PrintGetManagerText);
             return ManagerFactory.BuildSweepstakesManager(choice);
         }
         public void AddSweepstakes(Sweepstakes sweepstakes)
@@ -52,7 +57,7 @@ namespace Sweepstakes
         }
         private void ManageSweepstakes()
         {
-            if (!manager.IsEmpty())
+            if (manager.IsEmpty())
             {
                 ManageIfNoSweepstakes();
             }
@@ -78,35 +83,66 @@ namespace Sweepstakes
         }
         private void ManageIfSweepstakes()
         {
-            int input;
-            input = UI.ManagerIsNotEmpty();
-            switch (input)
+            bool continueRunning = true; ;
+            do
             {
-                case 1:
-                    AddSweepstakes();
-                    break;
-                case 2:
-                    ManageExtantSweepstakes();
-                    break;
-                default:
-                    break;
-            }
+                int input;
+                input = UI.ManagerIsNotEmpty();
+                switch (input)
+                {
+                    case 1:
+                        AddSweepstakes();
+                        break;
+                    case 2:
+                        ManageExtantSweepstakes();
+                        break;
+                    default:
+                        continueRunning = false;
+                        break;
+                }
+            } while (continueRunning);
         }
         private void ManageExtantSweepstakes()
         {
-            int input;
-            input = UI.GetManageExtantSweepstakesInput();
-            switch (input)
+            bool continueRunning = true;
+            do
             {
-                case 1:
-                    AddSweepstakes();
-                    break;
-                case 2:
-                    ManageExtantSweepstakes();
-                    break;
-                default:
-                    break;
-            }
+                Sweepstakes sweepstakes = manager.GetSweepstakes();
+                if (sweepstakes != null)
+                {
+                    int input;
+                    input = UI.GetManageExtantSweepstakesInput(sweepstakes);
+                    switch (input)
+                    {
+                        case 1:
+                            sweepstakes.RegisterContestant(RegisterNewContestant());
+                            break;
+                        case 2:
+                            sweepstakes.PickWinner();
+                            break;
+                        case 3:
+                            sweepstakes.PrintContestantInfo();
+                            break;
+                        default:
+                            continueRunning = false;
+                            break;
+                    }
+                }
+                else
+                    continueRunning = false;
+            } while (continueRunning);
+        }
+        private Contestant RegisterNewContestant()
+        {
+            Contestant contestant = new Contestant();
+            GetContestantInfo(contestant);
+            return contestant;
+        }
+        private void GetContestantInfo(Contestant contestant)
+        {
+            contestant.FirstName = UI.GetContestantFirstName();
+            contestant.LastName = UI.GetContestantLastName();
+            contestant.Email = UI.GetContestantEmail();
         }
         public void Run()
         {
