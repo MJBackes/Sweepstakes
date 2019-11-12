@@ -10,6 +10,9 @@ namespace Sweepstakes
     {
         static void Main(string[] args)
         {
+            Sweepstakes sweep = default;
+            MarketingFirm firm = new MarketingFirm();
+            firm.Run();
         }
     }
 }

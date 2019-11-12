@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sweepstakes
 {
-    public class Contestant
+    public class Contestant : IObserver
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -14,6 +14,7 @@ namespace Sweepstakes
         public double RegistrationNumber { get; set; }
         public Contestant()
         {
+            FirstName = "";
 
         }
         public void PrintInfo()
@@ -21,6 +22,10 @@ namespace Sweepstakes
             Console.WriteLine($"Name: {FirstName} {LastName}");
             Console.WriteLine($"Email: {Email}");
             Console.WriteLine($"Registration Number: {RegistrationNumber}");
+        }
+        public void Update(ISubject subject)
+        {
+
         }
     }
 }
