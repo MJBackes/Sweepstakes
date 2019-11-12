@@ -25,25 +25,37 @@ namespace Sweepstakes
             {
                 if(pair.Value == Winner)
                 {
-                    NotifyWinner();
+                    NotifyWinner(pair.Value);
                 }
                 else
                 {
-                    NotifyNonWinningContestant();
+                    NotifyNonWinningContestant(pair.Value);
                 }
             }
         }
-        private void NotifyWinner()
+        private void NotifyWinner(Contestant contestant)
         {
-
+            EmailModel model = new EmailModel(
+                contestant.FirstName,
+                contestant.LastName,
+                contestant.Email,
+                Name,
+                true);
+            EmailService.SendEmail(model);
         }
-        private void NotifyNonWinningContestant()
+        private void NotifyNonWinningContestant(Contestant contestant)
         {
-
+            EmailModel model = new EmailModel(
+                contestant.FirstName,
+                contestant.LastName,
+                contestant.Email,
+                Name,
+                false);
+            EmailService.SendEmail(model);
         }
         public void RegisterContestant(Contestant contestant)
         {
-            contestant.RegistrationNumber = new Guid();
+            contestant.RegistrationNumber = Guid.NewGuid();
             Contestants.Add(contestant.RegistrationNumber, contestant);
         }
         public Contestant PickWinner()
@@ -65,14 +77,10 @@ namespace Sweepstakes
         }
         public void PrintContestantInfo()
         {
-            foreach (KeyValuePair<double, Contestant> contestant in Contestants)
+            foreach (KeyValuePair<Guid, Contestant> contestant in Contestants)
             {
                 contestant.Value.PrintInfo();
             }
-        }
-        public void Manage()
-        {
-
         }
     }
 }

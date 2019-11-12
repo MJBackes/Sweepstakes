@@ -31,6 +31,10 @@ namespace Sweepstakes
             } while (output == "");
             return output;
         }
+        public static int GetManagerChoice()
+        {
+            return GetUserInputInt(PrintGetManagerText);
+        }
         public static string GetSweepstakesName()
         {
             return GetUserInputString(PrintGetSweepstakesNameText);

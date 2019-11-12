@@ -16,7 +16,7 @@ namespace Sweepstakes
         }
         private ISweepstakesManager GetSweepstakesManager()
         {
-            int choice = UI.GetUserInput(PrintGetManagerText);
+            int choice = UI.GetManagerChoice();
             return ManagerFactory.BuildSweepstakesManager(choice);
         }
         public void AddSweepstakes(Sweepstakes sweepstakes)
@@ -122,6 +122,7 @@ namespace Sweepstakes
                             break;
                         case 3:
                             sweepstakes.PrintContestantInfo();
+                            Console.ReadLine();
                             break;
                         default:
                             continueRunning = false;
@@ -146,7 +147,6 @@ namespace Sweepstakes
         }
         public void Run()
         {
-            StartUp();
             MainTask();
         }
     }
