@@ -20,7 +20,7 @@ namespace Sweepstakes
             ToName = $"{firstName} {lastName}";
             ToEmailAddress = emailAdress;
             FromDisplayName = $"{sweepstakesName}";
-            FromEmailAddress = "";
+            FromEmailAddress = EmailInfo.Address;
             Subject = $"Re: The {sweepstakesName} Sweepstakes.";
             if (isWinner)
                 Message = "You Won!";

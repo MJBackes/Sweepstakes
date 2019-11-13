@@ -18,7 +18,7 @@ namespace Sweepstakes
             do
             {
                 isValid = int.TryParse(Console.ReadLine(), out output);
-            } while (!isValid && output > 0 && output <= maxInput);
+            } while (!isValid || output < 1 || output > maxInput);
             return output;
         }
         private static string GetUserInputString(PrintVoidText callback)
@@ -95,8 +95,9 @@ namespace Sweepstakes
             Console.WriteLine("1. Register contestant.");
             Console.WriteLine("2. Pick winner.");
             Console.WriteLine("3. Print contestant info.");
-            Console.WriteLine("4. Quit.");
-            return 4;
+            Console.WriteLine("4. Back.");
+            int maxInputValue = 4;
+            return maxInputValue;
         }
         private static int PrintManagerIsNotEmptyText(Sweepstakes sweepstakes = null)
         {
@@ -104,8 +105,9 @@ namespace Sweepstakes
             Console.WriteLine("Would you like to manage an extant sweepstakes or create a new sweepstakes?");
             Console.WriteLine("1. Create Sweepstakes.");
             Console.WriteLine("2. Manage extant sweepstakes.");
-            Console.WriteLine("3. Quit.");
-            return 3;
+            Console.WriteLine("3. Back.");
+            int maxInputValue = 3;
+            return maxInputValue;
         }
         private static int PrintManagerIsEmptyText(Sweepstakes sweepstakes = null)
         {
@@ -113,7 +115,8 @@ namespace Sweepstakes
             Console.WriteLine("There are currently no sweepstakes to manage. Create a new sweepstakes?");
             Console.WriteLine("1. Create Sweepstakes.");
             Console.WriteLine("2. Quit.");
-            return 2;
+            int maxInputValue = 2;
+            return maxInputValue;
         }
         private static int PrintGetManageSweepstakesInputText(Sweepstakes sweepstakes)
         {
@@ -123,8 +126,9 @@ namespace Sweepstakes
             Console.WriteLine(sweepstakes.Name);
             Console.WriteLine("1. Manage Sweepstakes.");
             Console.WriteLine("2. Next.");
-            Console.WriteLine("3. Quit.");
-            return 3;
+            Console.WriteLine("3. Back.");
+            int maxInputValue = 3;
+            return maxInputValue;
         }
         private static int PrintMainTaskInputText(Sweepstakes sweepstakes = null)
         {
@@ -132,7 +136,8 @@ namespace Sweepstakes
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("1. Manage Sweepstakes.");
             Console.WriteLine("2. Quit.");
-            return 2;
+            int maxInputValue = 2;
+            return maxInputValue;
         }
         private static int PrintGetManagerText(Sweepstakes sweepstakes = null)
         {
@@ -140,7 +145,8 @@ namespace Sweepstakes
             Console.WriteLine("How would you like to store your sweepstakes?");
             Console.WriteLine("1. Stack (First in last out).");
             Console.WriteLine("2. Queue (First in first out).");
-            return 2;
+            int maxInputValue = 2;
+            return maxInputValue;
         }
         private static void PrintGetSweepstakesNameText()
         {

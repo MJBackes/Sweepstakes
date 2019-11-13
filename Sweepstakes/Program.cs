@@ -10,8 +10,6 @@ namespace Sweepstakes
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Guid.NewGuid());
-            Console.ReadLine();
             ISweepstakesManager manager = ManagerFactory.BuildSweepstakesManager(UI.GetManagerChoice());
             MarketingFirm firm = new MarketingFirm(manager);
             firm.Run();
