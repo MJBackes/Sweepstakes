@@ -33,7 +33,7 @@ namespace Sweepstakes
                 }
             }
         }
-        private void NotifyWinner(Contestant contestant)
+        private async void NotifyWinner(Contestant contestant)
         {
             EmailModel model = new EmailModel(
                 contestant.FirstName,
@@ -41,9 +41,9 @@ namespace Sweepstakes
                 contestant.Email,
                 Name,
                 true);
-            EmailService.SendEmail(model);
+            await EmailService.SendEmail(model);
         }
-        private void NotifyNonWinningContestant(Contestant contestant)
+        private async void NotifyNonWinningContestant(Contestant contestant)
         {
             EmailModel model = new EmailModel(
                 contestant.FirstName,
@@ -51,7 +51,7 @@ namespace Sweepstakes
                 contestant.Email,
                 Name,
                 false);
-            EmailService.SendEmail(model);
+            await EmailService.SendEmail(model);
         }
         public void RegisterContestant(Contestant contestant)
         {

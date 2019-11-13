@@ -12,11 +12,6 @@ namespace Sweepstakes
         public string LastName { get; set; }
         public string Email { get; set; }
         public Guid RegistrationNumber { get; set; }
-        public Contestant()
-        {
-            FirstName = "";
-
-        }
         public void PrintInfo()
         {
             Console.WriteLine($"Name: {FirstName} {LastName}");
